@@ -1,0 +1,49 @@
+﻿<Window x:Class="InventoryManagement.View.ItemMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventoryManagement.View"
+        mc:Ignorable="d"
+        Title="ItemMenu" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
+            <Label Margin="2" Content="Введите название предмета: "/>
+            <TextBox Margin="2" Name="ItemTextBox"/>
+
+            <Label Content="Выберите тип предмета:"/>
+            <ComboBox Margin="2" Name="TypeItemConboBox"/>
+
+            <Button Margin="2" Content="Выбрать изображение" Click="SelectImage"/>
+            <Image Name="ItemImage" Width="50" Height="50" Margin="2"/>
+
+            <Button Margin="2" Content="Добавить предмет" Click="AddItem"/>
+            <Button Margin="2" Content="Открыть инвентарь" Click="OpenInventory"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Button Margin="2" Content="Выдать предмет" Click="GiveItem"/>
+            <Button Margin="2" Content="Удалить предмет" Click="DeleteItem"/>
+
+            <ListView Name="ItemsView" Margin="2" Height="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Название" DisplayMemberBinding="{Binding NameItem}" Width="120"/>
+                        <GridViewColumn Header="Изображение">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImageQuestion}" Width="50" Height="50"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>
