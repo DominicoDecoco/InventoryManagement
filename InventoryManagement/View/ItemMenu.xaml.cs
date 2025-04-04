@@ -192,5 +192,6 @@ namespace InventoryManagement.View
             Close();
             
         }
+
     }
 }

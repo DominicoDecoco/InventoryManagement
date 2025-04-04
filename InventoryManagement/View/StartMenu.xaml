@@ -116,6 +116,7 @@
                     Drop="Slot_Drop"></Button>
                         </StackPanel>
                     </Grid>
+                    <Button  Margin="2" Height="50" Width="50" Content="X" Click="DeleteInventory"></Button>
                     <Button  Margin="2" Content="Административное меню" Click="AdminMenu"></Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
