@@ -45,6 +45,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Header="Тип предмета" DisplayMemberBinding="{Binding TypeItem.NameTypeItems}" Width="120"/>
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -71,21 +71,44 @@ namespace InventoryManagement.View
                 using (var conn = new NpgsqlConnection(connectionString))
                 {
                     conn.Open();
-                    var cmd = new NpgsqlCommand("SELECT IDItem, NameItem, TypeIt, ImageQuestion FROM Items", conn);
-                    var reader = cmd.ExecuteReader();
-                    items.Clear();
 
-                    while (reader.Read())
+                    // Загрузим все типы в словарь
+                    var typeCmd = new NpgsqlCommand("SELECT IDTypeItem, NameTypeItems FROM TypeItems", conn);
+                    var typeReader = typeCmd.ExecuteReader();
+                    var typeDict = new Dictionary<int, TypeItem>();
+
+                    while (typeReader.Read())
                     {
-                        items.Add(new Item
+                        var typeItem = new TypeItem
                         {
-                            IDItem = reader.GetInt32(0),
-                            NameItem = reader.GetString(1),
-                            TypeIt = reader.GetInt32(2),
-                            ImageQuestion = reader.IsDBNull(3) ? null : (byte[])reader["ImageQuestion"]
-                        });
+                            IDTypeItem = typeReader.GetInt32(0),
+                            NameTypeItems = typeReader.GetString(1)
+                        };
+                        typeDict[typeItem.IDTypeItem] = typeItem;
                     }
 
+                    typeReader.Close();
+
+                    // Теперь загрузим сами предметы
+                    var itemCmd = new NpgsqlCommand("SELECT IDItem, NameItem, TypeIt, ImageQuestion FROM Items", conn);
+                    var itemReader = itemCmd.ExecuteReader();
+
+                    items.Clear();
+                    while (itemReader.Read())
+                    {
+                        var typeId = itemReader.GetInt32(2);
+                        var item = new Item
+                        {
+                            IDItem = itemReader.GetInt32(0),
+                            NameItem = itemReader.GetString(1),
+                            TypeIt = typeId,
+                            ImageQuestion = itemReader.IsDBNull(3) ? null : (byte[])itemReader["ImageQuestion"],
+                            TypeItem = typeDict.ContainsKey(typeId) ? typeDict[typeId] : null
+                        };
+                        items.Add(item);
+                    }
+
+                    itemReader.Close();
                     ItemsView.ItemsSource = null;
                     ItemsView.ItemsSource = items;
                 }
