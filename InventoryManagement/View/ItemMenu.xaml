@@ -6,31 +6,35 @@
         xmlns:local="clr-namespace:InventoryManagement.View"
         mc:Ignorable="d"
         Title="ItemMenu" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#3e2f1c">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
-            <Label Margin="2" Content="Введите название предмета: "/>
-            <TextBox Margin="2" Name="ItemTextBox"/>
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="15" Background="#5b4228">
+            <StackPanel.Effect>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="3" Color="Black"/>
+            </StackPanel.Effect>
 
-            <Label Content="Выберите тип предмета:"/>
-            <ComboBox Margin="2" Name="TypeItemConboBox"/>
+            <Label Margin="5" Foreground="White" FontWeight="Bold" Content="Введите название предмета: "/>
+            <TextBox Margin="5" Name="ItemTextBox" Background="#f2e6d9"/>
 
-            <Button Margin="2" Content="Выбрать изображение" Click="SelectImage"/>
-            <Image Name="ItemImage" Width="50" Height="50" Margin="2"/>
+            <Label Margin="5" Foreground="White" FontWeight="Bold" Content="Выберите тип предмета:"/>
+            <ComboBox Margin="5" Name="TypeItemConboBox" Background="#f2e6d9"/>
 
-            <Button Margin="2" Content="Добавить предмет" Click="AddItem"/>
-            <Button Margin="2" Content="Открыть инвентарь" Click="OpenInventory"/>
+            <Button Margin="5" Background="#8c6b45" Foreground="White" Content="Выбрать изображение" Click="SelectImage"/>
+            <Image Name="ItemImage" Width="50" Height="50" Margin="5"/>
+
+            <Button Margin="5" Background="#4a7a3c" Foreground="White" Content="Добавить предмет" Click="AddItem"/>
+            <Button Margin="5" Background="#3f6077" Foreground="White" Content="Открыть инвентарь" Click="OpenInventory"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Orientation="Vertical">
-            <Button Margin="2" Content="Выдать предмет" Click="GiveItem"/>
-            <Button Margin="2" Content="Удалить предмет" Click="DeleteItem"/>
+            <Button Margin="5" Background="#7d2c2c" Foreground="White" Content="Выдать предмет" Click="GiveItem"/>
+            <Button Margin="5" Background="#a83232" Foreground="White" Content="Удалить предмет" Click="DeleteItem"/>
 
-            <ListView Name="ItemsView" Margin="2" Height="200">
+            <ListView Name="ItemsView" Margin="5" Height="200" Background="#f2e6d9">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Название" DisplayMemberBinding="{Binding NameItem}" Width="120"/>

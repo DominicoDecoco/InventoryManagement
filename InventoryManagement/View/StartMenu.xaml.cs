@@ -34,6 +34,7 @@ namespace InventoryManagement.View
             InitializeComponent();
             InitializeBackpackSlots();
             LoadItemsToBackpack();
+            LoadEquipment();
             InitializeEquipmentSlots();
             if (receivedItem != null)
             {
@@ -149,6 +150,13 @@ namespace InventoryManagement.View
         { "Pants", 3 },    // Штаны
         { "Gloves", 4 }    // Перчатки
         };
+        private static Dictionary<string, Item> globalEquipment = new Dictionary<string, Item>
+{
+    { "Necklace", null },
+    { "Torso", null },
+    { "Pants", null },
+    { "Gloves", null }
+};
 
         private void Slot_Drop(object sender, DragEventArgs e)
         {
@@ -160,28 +168,61 @@ namespace InventoryManagement.View
             if (droppedItem == null)
                 return;
 
+            // Ищем источник предмета (рюкзак или экипировка)
             int sourceIndex = globalInventoryItems.IndexOf(droppedItem);
-            int targetIndex = backpackSlots.IndexOf(targetButton);
+            bool fromBackpack = sourceIndex != -1;
 
-            if (sourceIndex != -1 && targetIndex != -1)
+            // Если цель — ячейка рюкзака
+            if (backpackSlots.Contains(targetButton))
             {
-                // Перемещение внутри рюкзака
-                (globalInventoryItems[sourceIndex], globalInventoryItems[targetIndex]) =
-                (globalInventoryItems[targetIndex], globalInventoryItems[sourceIndex]);
+                int targetIndex = backpackSlots.IndexOf(targetButton);
 
-                UpdateSlotContent(sourceIndex);
-                UpdateSlotContent(targetIndex);
-            }
-            else if (equipmentSlots.TryGetValue(targetButton.Name, out int slotType))
-            {
-                // Проверяем, соответствует ли предмет слоту экипировки
-                if (droppedItem.TypeIt == slotType)
+                if (fromBackpack)
                 {
-                    // Удаляем предмет из рюкзака
-                    globalInventoryItems.Remove(droppedItem);
-                    UpdateSlotContent(sourceIndex);
+                    // Перемещение внутри рюкзака
+                    (globalInventoryItems[sourceIndex], globalInventoryItems[targetIndex]) =
+                        (globalInventoryItems[targetIndex], globalInventoryItems[sourceIndex]);
 
-                    // Устанавливаем предмет в экипировку
+                    UpdateSlotContent(sourceIndex);
+                    UpdateSlotContent(targetIndex);
+                }
+                else
+                {
+                    // Перемещение из экипировки в рюкзак
+                    if (globalInventoryItems[targetIndex] == null)
+                    {
+                        globalInventoryItems[targetIndex] = droppedItem;
+                        UpdateSlotContent(targetIndex);
+
+                        // Очищаем экипировку
+                        ClearEquipmentSlot(droppedItem);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Слот рюкзака занят!");
+                    }
+                }
+            }
+            else if (equipmentSlots.TryGetValue(targetButton.Name, out int requiredType))
+            {
+                if (droppedItem.TypeIt == requiredType)
+                {
+                    if (globalEquipment[targetButton.Name] != null)
+                    {
+                        return;
+                    }
+                    // Если предмет был в рюкзаке, удаляем его
+                    if (fromBackpack)
+                    {
+                        globalInventoryItems[sourceIndex] = null;
+                        UpdateSlotContent(sourceIndex);
+                    }
+                    else
+                    {
+                        // Удаляем из старой экипировки
+                        ClearEquipmentSlot(droppedItem);
+                    }
+
                     SetEquipmentSlot(targetButton, droppedItem);
                 }
                 else
@@ -190,9 +231,13 @@ namespace InventoryManagement.View
                 }
             }
         }
+
         private void SetEquipmentSlot(Button slot, Item item)
         {
-            if (item.ImageQuestion != null && item.ImageQuestion.Length > 0)
+            string slotName = slot.Name;
+            globalEquipment[slotName] = item;
+
+            if (item.ImageQuestion != null)
             {
                 BitmapImage bitmap = new BitmapImage();
                 using (var stream = new MemoryStream(item.ImageQuestion))
@@ -206,11 +251,56 @@ namespace InventoryManagement.View
             }
             else
             {
-                slot.Content = item.NameItem;
+                slot.Content = item.NameItem ?? "Без названия";
             }
 
-            slot.Tag = item; // Сохраняем предмет в слоте
-            Console.WriteLine($"Предмет {item.NameItem} установлен в слот {slot.Name}");
+            slot.Tag = item;
+        }
+        private void LoadEquipment()
+        {
+            foreach (var pair in globalEquipment.ToList()) // Создаем копию, чтобы избежать ошибки
+            {
+                Button button = this.FindName(pair.Key) as Button;
+                if (button != null && pair.Value != null)
+                {
+                    // Восстанавливаем без изменения globalEquipment — он уже содержит нужный предмет
+                    if (pair.Value.ImageQuestion != null)
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        using (var stream = new MemoryStream(pair.Value.ImageQuestion))
+                        {
+                            bitmap.BeginInit();
+                            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmap.StreamSource = stream;
+                            bitmap.EndInit();
+                        }
+                        button.Content = new Image { Source = bitmap, Width = 40, Height = 40 };
+                    }
+                    else
+                    {
+                        button.Content = pair.Value.NameItem ?? "Без названия";
+                    }
+
+                    button.Tag = pair.Value;
+                }
+            }
+        }
+        private void ClearEquipmentSlot(Item item)
+        {
+            foreach (var pair in equipmentSlots)
+            {
+                if (globalEquipment.TryGetValue(pair.Key, out Item equippedItem) && equippedItem == item)
+                {
+                    globalEquipment[pair.Key] = null; // Удалить из словаря — ВАЖНО
+
+                    Button slot = this.FindName(pair.Key) as Button;
+                    if (slot != null)
+                    {
+                        slot.Content = null;
+                        slot.Tag = null;
+                    }
+                }
+            }
         }
         private void EquipmentSlot_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -227,20 +317,16 @@ namespace InventoryManagement.View
         }
         private void InitializeEquipmentSlots()
         {
-            Necklace.PreviewMouseLeftButtonDown += EquipmentSlot_MouseDown;
-            Torso.PreviewMouseLeftButtonDown += EquipmentSlot_MouseDown;
-            Gloves.PreviewMouseLeftButtonDown += EquipmentSlot_MouseDown;
-            Pants.PreviewMouseLeftButtonDown += EquipmentSlot_MouseDown;
-
-            Necklace.AllowDrop = true;
-            Torso.AllowDrop = true;
-            Gloves.AllowDrop = true;
-            Pants.AllowDrop = true;
-
-            Necklace.Drop += Slot_Drop;
-            Torso.Drop += Slot_Drop;
-            Gloves.Drop += Slot_Drop;
-            Pants.Drop += Slot_Drop;
+            foreach (var pair in equipmentSlots)
+            {
+                Button button = this.FindName(pair.Key) as Button;
+                if (button != null)
+                {
+                    button.PreviewMouseLeftButtonDown += EquipmentSlot_MouseDown;
+                    button.AllowDrop = true;
+                    button.Drop += Slot_Drop; //  Обработка бросания в экипировку
+                }
+            }
         }
         private void UpdateSlotContent(int index)
         {
@@ -286,9 +372,41 @@ namespace InventoryManagement.View
             }
         }
 
-        private void DeleteInventory(object sender, RoutedEventArgs e)
+        private void DeleteInventory(object sender, DragEventArgs e)
         {
+            if (!e.Data.GetDataPresent(typeof(Item)))
+                return;
 
+            Item itemToDelete = e.Data.GetData(typeof(Item)) as Item;
+
+            if (itemToDelete == null)
+                return;
+
+            // Удаление из рюкзака
+            int index = globalInventoryItems.IndexOf(itemToDelete);
+            if (index != -1)
+            {
+                globalInventoryItems[index] = null;
+                UpdateSlotContent(index);
+                return;
+            }
+
+            // Удаление из экипировки
+            foreach (var pair in equipmentSlots)
+            {
+                if (globalEquipment.TryGetValue(pair.Key, out Item equippedItem) && equippedItem == itemToDelete)
+                {
+                    globalEquipment[pair.Key] = null;
+
+                    Button slot = this.FindName(pair.Key) as Button;
+                    if (slot != null && slot.Tag == itemToDelete)
+                    {
+                        slot.Content = null;
+                        slot.Tag = null;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

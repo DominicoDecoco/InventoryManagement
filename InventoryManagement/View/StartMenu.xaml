@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:InventoryManagement.View"
         mc:Ignorable="d"
         Title="StartMenu" Height="520" Width="800">
-    <Grid>
-        <Border Margin="15" Background="White" CornerRadius="10">
+    <Grid Background="#3b2a19">
+        <Border Margin="15" CornerRadius="10" BorderBrush="#4d3825" BorderThickness="3">
+            
             <Border.Effect>
-                <DropShadowEffect BlurRadius="20" ShadowDepth="0"></DropShadowEffect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="Black" />
             </Border.Effect>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -17,7 +18,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Name="StackBackpack" Grid.Column="0" Orientation="Vertical" Margin="5">
-                    <Label>Рюкзак</Label>
+                    <Label Content="🎒 Рюкзак" FontSize="18" FontWeight="Bold" Foreground="#ffdca7" />
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -31,93 +32,97 @@
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                         </StackPanel>
                         <StackPanel Name="SecondRow" Grid.Row="1" Orientation="Horizontal">
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                         </StackPanel>
                         <StackPanel Name="ThreeRow" Grid.Row="2" Orientation="Horizontal">
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                         </StackPanel>
                         <StackPanel Name="FourRow" Grid.Row="3" Orientation="Horizontal">
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                             <Button Margin="5" Height="50" Width="50" AllowDrop="True"
                     PreviewMouseLeftButtonDown="Slot_MouseDown"
                     PreviewMouseMove="Slot_MouseMove"
-                    Drop="Slot_Drop"></Button>
+                    Drop="Slot_Drop" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                         </StackPanel>
                     </Grid>
-                    <Button  Margin="2" Height="50" Width="50" Content="X" Click="DeleteInventory"></Button>
-                    <Button  Margin="2" Content="Административное меню" Click="AdminMenu"></Button>
+                    <Button Name="DeleteZone" Margin="2" Height="50" Width="50" Content="🗑"
+                        AllowDrop="True" Drop="DeleteInventory"
+                        ToolTip="Перетащи сюда предмет, чтобы удалить"
+                        Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"/>
+                    <Button Margin="2" Content="⚙ Административное меню" Click="AdminMenu"
+                        Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
                     <Grid>
@@ -128,15 +133,15 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <StackPanel Name="OneRowInv" Grid.Row="0" Orientation="Vertical">
-                            <Label FontSize="15">Снаряжение</Label>
-                            <Label HorizontalAlignment="Center">Ожерелье</Label>
-                            <Button Name="Necklace" Margin="5" Height="50" Width="50" ></Button>
-                            <Label HorizontalAlignment="Center">Туловище</Label>
-                            <Button Name="Torso" Margin="5" Height="50" Width="50"></Button>
-                            <Label HorizontalAlignment="Center">Перчатки</Label>
-                            <Button Name="Gloves" Margin="5" Height="50" Width="50"></Button>
-                            <Label HorizontalAlignment="Center">Штаны</Label>
-                            <Button Name="Pants" Margin="5" Height="50" Width="50"></Button>
+                            <Label Content="🛡 Снаряжение" FontSize="18" FontWeight="Bold" Foreground="#ffdca7" HorizontalAlignment="Center" />
+                            <Label Content="Ожерелье" HorizontalAlignment="Center" Foreground="#f0e4c0"/>
+                            <Button Name="Necklace" Margin="5" Height="50" Width="50" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
+                            <Label HorizontalAlignment="Center" Foreground="#f0e4c0">Туловище</Label>
+                            <Button Name="Torso" Margin="5" Height="50" Width="50" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
+                            <Label HorizontalAlignment="Center" Foreground="#f0e4c0">Перчатки</Label>
+                            <Button Name="Gloves" Margin="5" Height="50" Width="50" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
+                            <Label HorizontalAlignment="Center" Foreground="#f0e4c0">Штаны</Label>
+                            <Button Name="Pants" Margin="5" Height="50" Width="50" Background="#5c3e2b" Foreground="White" BorderBrush="#a8784f"></Button>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
