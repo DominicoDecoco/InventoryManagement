@@ -216,5 +216,39 @@ namespace InventoryManagement.View
             
         }
 
+        private void EditItem(object sender, RoutedEventArgs e)
+        {
+            if (ItemsView.SelectedItem is Item selectedItem)
+            {
+                EditItemWindow editWindow = new EditItemWindow(selectedItem, TypeItemConboBox.ItemsSource.Cast<TypeItem>().ToList());
+                if (editWindow.ShowDialog() == true)
+                {
+                    try
+                    {
+                        using (var conn = new NpgsqlConnection(connectionString))
+                        {
+                            conn.Open();
+                            var cmd = new NpgsqlCommand("UPDATE Items SET NameItem = @name, TypeIt = @type, ImageQuestion = @image WHERE IDItem = @id", conn);
+                            cmd.Parameters.AddWithValue("name", selectedItem.NameItem);
+                            cmd.Parameters.AddWithValue("type", selectedItem.TypeIt);
+                            cmd.Parameters.AddWithValue("image", selectedItem.ImageQuestion ?? (object)DBNull.Value);
+                            cmd.Parameters.AddWithValue("id", selectedItem.IDItem);
+                            cmd.ExecuteNonQuery();
+
+                            MessageBox.Show("Предмет обновлён!");
+                            LoadItems();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при обновлении предмета: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите предмет для редактирования.");
+            }
+        }
     }
 }

@@ -23,7 +23,6 @@ namespace InventoryManagement.View
     public partial class StartMenu : Window
     {
         private static List<Item> globalInventoryItems = new List<Item>(new Item[20]); // Глобальный инвентарь
-        private string connectionString = "Host=127.0.0.1;Username=postgres;Password=1234;Database=ListOfSubjects";
         private List<Button> backpackSlots = new List<Button>();
         private Point startPoint; // Переменная для отслеживания начальной позиции нажатия
 

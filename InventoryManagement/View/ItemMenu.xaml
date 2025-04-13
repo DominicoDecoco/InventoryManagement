@@ -33,7 +33,7 @@
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <Button Margin="5" Background="#7d2c2c" Foreground="White" Content="Выдать предмет" Click="GiveItem"/>
             <Button Margin="5" Background="#a83232" Foreground="White" Content="Удалить предмет" Click="DeleteItem"/>
-
+            <Button Margin="5" Background="#7d2c2c" Foreground="White" Content="Отредактировать предмет" Click="EditItem"/>
             <ListView Name="ItemsView" Margin="5" Height="200" Background="#f2e6d9">
                 <ListView.View>
                     <GridView>

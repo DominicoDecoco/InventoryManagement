@@ -118,6 +118,9 @@
     </Compile>
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\TypeItem.cs" />
+    <Compile Include="View\EditItemWindow.xaml.cs">
+      <DependentUpon>EditItemWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ItemMenu.xaml.cs">
       <DependentUpon>ItemMenu.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="View\EditItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ItemMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
